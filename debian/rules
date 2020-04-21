@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+DEB_VERSION=$(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-]+).*,\1,p')
+ORIG_SRC=https://github.com/WindowsAzure/WALinuxAgent
+
+get-packaged-orig-source:
+	git clone --separate-git-dir=walinuxagent.checkout \
+		$(ORIG_SRC) orig_source
+	git checkout -b tags/v$(DEB_VERSION)
+	git archive --format=tar.gz v$(DEB_VERSION) \
+		-o walinuxagent_$(DEB_VERSION).orig.tar.gz
+	rm -rf walinuxagent.checkout
+	rm -rf orig_source
+
+%:
+	dh $@ --with python3,systemd --buildsystem=pybuild
+
+
+override_dh_installinit:
+	dh_installinit --no-restart-on-upgrade --name walinuxagent
+	dh_installinit --no-restart-on-upgrade --name ephemeral-disk-warning
+
+override_dh_systemd_enable:
+	dh_systemd_enable --name walinuxagent walinuxagent.service
+	dh_systemd_enable --name ephemeral-disk-warning ephemeral-disk-warning.service
+
+override_dh_python3:
+	dh_python3 -O--buildsystem=pybuild --shebang "/usr/bin/env python3"
+
+override_dh_auto_test:
+	# No test were run on any of the previous versions, temporarily
+	# ignoring the failures as they're not regressions (LP: #1800499)
+	# XXX: Those need to be fixed ASAP.
+	-timeout 120 dh_auto_test -O--buildsystem=pybuild

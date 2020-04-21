@@ -1,0 +1,2 @@
+mv_conffile /etc/logrotate.d/waagent /etc/logrotate.d/waagent.logrotate 2.2.6~
+rm_conffile /etc/cloud/cloud.cfg.d/91_walinuxagent.cfg 2.2.21+really2.2.20-0ubuntu1

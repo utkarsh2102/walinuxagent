@@ -1,0 +1,43 @@
+Index: walinuxagent-2.2.32/config/waagent.conf
+===================================================================
+--- walinuxagent-2.2.32.orig/config/waagent.conf
++++ walinuxagent-2.2.32/config/waagent.conf
+@@ -3,7 +3,7 @@
+ #
+ 
+ # Enable instance creation
+-Provisioning.Enabled=y
++Provisioning.Enabled=n
+ 
+ # Enable extension handling. Do not disable this unless you do not need password reset,
+ # backup, monitoring, or any extension handling whatsoever.
+@@ -13,10 +13,10 @@ Extensions.Enabled=y
+ Provisioning.UseCloudInit=n
+ 
+ # Password authentication for root account will be unavailable.
+-Provisioning.DeleteRootPassword=y
++Provisioning.DeleteRootPassword=n
+ 
+ # Generate fresh host key pair.
+-Provisioning.RegenerateSshHostKeyPair=y
++Provisioning.RegenerateSshHostKeyPair=n
+ 
+ # Supported values are "rsa", "dsa", "ecdsa", "ed25519", and "auto".
+ # The "auto" option is supported on OpenSSH 5.9 (2011) and later.
+@@ -41,14 +41,14 @@ Provisioning.ExecuteCustomData=n
+ Provisioning.AllowResetSysUser=n
+ 
+ # Format if unformatted. If 'n', resource disk will not be mounted.
+-ResourceDisk.Format=y
++ResourceDisk.Format=n
+ 
+ # File system on the resource disk
+ # Typically ext3 or ext4. FreeBSD images should use 'ufs2' here.
+ ResourceDisk.Filesystem=ext4
+ 
+ # Mount point for the resource disk
+-ResourceDisk.MountPoint=/mnt/resource
++ResourceDisk.MountPoint=/mnt
+ 
+ # Create and use swapfile on resource disk.
+ ResourceDisk.EnableSwap=n
