@@ -1,3 +1,9 @@
+walinuxagent (2.2.46-0ubuntu1.1) focal; urgency=medium
+
+  * d/control: Enable build for arm64.
+
+ -- Utkarsh Gupta <utkarsh.gupta@canonical.com>  Mon, 09 Aug 2021 19:24:40 +0530
+
 walinuxagent (2.2.46-0ubuntu1) focal; urgency=medium
 
   * New upstream version 2.2.46 (LP: #1874074)
